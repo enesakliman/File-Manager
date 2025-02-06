@@ -1,7 +1,7 @@
 import "./Main.styles.css";
 import React from "react";
 import backend from "../../services/backend";
-import useFolderQuery from "../../queries/useFolderQuery";
+import useQureyFolder from "../../queries/useFolderQuery";
 
 const Main = ({ sidebar, folderName, toolbar, content }) => {
   return (

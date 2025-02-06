@@ -7,8 +7,8 @@ import IconFolder from "../../assets/icons/IconFolder";
 import IconFolderOpen from "../../assets/icons/IconFolderOpen";
 import { useNavigate } from "react-router";
 
-const TreeMenuItem = ({ name, id, parentId }) => {
-  const expanded = useBoolean(false);
+const TreeMenuItem = ({ name, id, parentId, defaultExpanded }) => {
+  const expanded = useBoolean(defaultExpanded || false);
   const navigate = useNavigate();
 
   const handleClick = useCallback(() => {

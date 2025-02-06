@@ -1,24 +1,28 @@
-import { useQueryClient, useQuery } from "@tanstack/react-query";
-import React from "react";
+import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 import backend from "../services/backend";
 
-export const useFoldersQuery = (_query) => {
+const useFolderQuery = (id) => {
   const queryClient = useQueryClient();
+  const find = useQuery({
+    queryKey: ["folder", id],
+    queryFn: ()=>backend.folderService.find(id).then((res) => res.data),
+    enabled: Boolean(id) && id !== "null",
+  })
 
+  const _query = { parentId: id };
   const list = useQuery({
-    queryKey: ["folders", _query],
+    queryKey: ["folders", {_query}],
     queryFn: () =>
       backend.folderService.list(_query).then((res) => res.data.result),
   });
 
-  return { list };
-};
+  const addSubfolder = useMutation({
+    mutationFn: () => {},
+    onSuccess: () => {
 
-export const useFolderQuery = (id) => {
-  const find = useQuery({
-    queryKey: ["folder", id],
-    queryFn: ()=>backend.folderService.find(id).then((res) => res.data),
-    enabled: Boolean(id),
+    }
   })
-  return { find };
+  return { find, list, addSubfolder };
 }
+
+export default useFolderQuery;
