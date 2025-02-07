@@ -8,9 +8,9 @@ const validationSchema = yup.object({
   name: yupToFormErrors.string().required("Klasör adı zorunludur"),
 });
 
-const CreateFolderModal = ({ modalId }) => {
+const CreateFolderModal = ({ modalId, parentFolderId }) => {
   const modal = useModal();
-  const param = useParams();
+  const folder = useFolderQuery(parentFolderId);
   const form = useFormik({
     initialValues: {
       name: "",
@@ -19,11 +19,14 @@ const CreateFolderModal = ({ modalId }) => {
     onSubmit: (value) => console.log(value),
   });
 
+  const parentId = parentFolderId === "null" ? null : parentFolderId || null;
+
   const handleOk = () => {
     form.validateForm().then((response) => {
       if (Object.keys(response).length) return;
-      form.handleSubmit();
-      modal.disapear(modalId);
+      folder.addSubfolder.mutateAsync({ ...form.values, parentId }).then(() => {
+        modal.hide(modalId);
+      });
     });
   };
   return (

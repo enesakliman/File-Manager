@@ -13,11 +13,12 @@ const FolderView = () => {
   const name =
     !params.id || params.id === "null" ? "Kök Klasör" : folder.find.data?.name;
 
-
   const handleClickCreate = () => {
     modal.appear({
       title: "Yeni Klasör",
-      cildren: CreateFolderModal,
+      cildren: (props) => (
+        <CreateFolderModal {...props} parentFolderId={params.id} />
+      ),
     });
   };
 

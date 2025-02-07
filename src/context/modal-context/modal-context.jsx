@@ -29,7 +29,7 @@ export const ModalProvider = ({ children }) => {
   return (
     <Context.Provider value={{ appear, disappear }}>
       {children}
-      {modals.length && (
+      {Boolean(modals.length) && (
         <div
           ref={backdropRef}
           className="modals-portal"
@@ -38,7 +38,7 @@ export const ModalProvider = ({ children }) => {
           {modals.map((modal) => {
             return;
             <Modal
-            key={modal.id}
+              key={modal.id}
               onClose={() => disappear(modal.id)}
               className={modal.className}
               style={modal.style}
