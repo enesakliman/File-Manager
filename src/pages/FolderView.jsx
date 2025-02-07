@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import TreeMenuItem from "../components/tree-menu/TreeMenuItem";
 import { useModal } from "../context/modal-context/modal-context";
 import CreateFolderModal from "../modals/CreateFolderModal/CreateFolderModal";
+import ListView from "../components/list-view/ListView";
 
 const FolderView = () => {
   const modal = useModal();
@@ -32,6 +33,9 @@ const FolderView = () => {
           </button>
           <TreeMenuItem name="Kök Klasör" id="null" defaultExpanded={true} />
         </>
+      }
+      content={
+        <ListView files={folder.files.data} folders={folder.list.data} />
       }
     />
   );
