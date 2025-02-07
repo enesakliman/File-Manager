@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import "./ListView.styles.css";
 
 const ListView = ({ files, folders }) => {
-  const [selectedItems, setSelectedItems] = useState([]);
+    
 
-  const handleSelectionChange = (e, item) => {
-    const val = e.currentTarget.checked;
-    if (val) {
-      setSelectedItems((prev) => [...prev, item]);
-    } else {
-      setSelectedItems((prev) => prev.filter((i) => i.id !== item.id));
-    }
-  };
+    const handleSelectionChange = (e, item) => {
+      const val = e.currentTarget.checked;
+      if (val) {
+        setSelectedItems((prev) => [...prev, item]);
+      } else {
+        setSelectedItems((prev) => prev.filter((i) => i.id !== item.id));
+      }
+    };
 
   return (
     <div className="list-view">
