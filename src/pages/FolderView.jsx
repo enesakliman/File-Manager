@@ -1,14 +1,18 @@
 import React from "react";
 import Main from "../layouts/Main/Main";
+import TreeMenuItem from "../components/tree-menu/TreeMenuItem";
+import ListView from "../components/list-view/ListView";
+import GridView from "../components/grid-view/GridView";
+import Toolbar from "../components/toolbar/Toolbar";
+import PreviewImage from "../components/preview-image/PreviewImage";
 import { useFolderQuery } from "../queries/useFolderQuery";
 import { useParams } from "react-router";
-import TreeMenuItem from "../components/tree-menu/TreeMenuItem";
 import { useModal } from "../context/modal-context/modal-context";
 import CreateFolderModal from "../modals/CreateFolderModal/CreateFolderModal";
-import ListView from "../components/list-view/ListView";
-import Toolbar from "../components/toolbar/Toolbar";
+import { useViewContext } from "../context/view-context/view-context";
 
 const FolderView = () => {
+  const viewContext = useViewContext();
   const { select, deselect, clear } = useViewContext();
   const modal = useModal();
   const params = useParams();
@@ -27,6 +31,7 @@ const FolderView = () => {
 
   return (
     <Main
+      preview={<PreviewImage />}
       toolbar={<Toolbar />}
       folderName={name}
       sidebar={
@@ -38,7 +43,9 @@ const FolderView = () => {
         </>
       }
       content={
-        <ListView files={folder.files.data} folders={folder.list.data} />
+        viewContext.type === "list" ? (
+          <ListView files={folder.files.data} folders={folder.list.data} />
+        ) : <GridView files={folder.files.data} folders={folder.list.data} />
       }
     />
   );

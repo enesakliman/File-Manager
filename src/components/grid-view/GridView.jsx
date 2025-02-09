@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import ListViewItem from "./ListViewItem";
+import GridViewItem from "./GridViewItem";
 import { useViewContext } from "../../context/view-context/view-context";
-import "./ListView.styles.css";
+import "./GridView.styles.css";
 import useFolderQuery from "../../queries/useFolderQuery";
 import { useNavigate, useParams } from "react-router";
 
-const ListView = ({ files, folders }) => {
+const GridView = ({ files, folders }) => {
   const navigate = useNavigate();
   const params = useParams();
   const folder = useFolderQuery(params.id);
@@ -20,21 +20,18 @@ const ListView = ({ files, folders }) => {
     }
   };
   return (
-    <div className="list-view">
-      <div className="list-view-title list-view-item">
-        <input type="checkbox" onChange={bulk} />
-        <span>Name</span>
-      </div>
+    <div className="grid-view">
+      
 
-      <div key="parent folder" className="list-view-item">
+      <div key="parent folder" className="grid-view-item">
         <img src="/folder-blue.png" style={{ marginLeft: "30px" }} />
         <span>..</span>
       </div>
       {[...(folders || []), ...(files || [])].map((f) => {
-        return <ListViewItem item={f} />;
+        return <GridViewItem item={f} />;
       })}
     </div>
   );
 };
 
-export default ListView;
+export default GridView;

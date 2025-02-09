@@ -3,6 +3,12 @@ import React, { useState, useContext, createContext } from "react";
 const Context = createContext(undefined);
 export const ViewContextProvider = ({ children }) => {
   const [selectedItems, setSelectedItems] = useState([]);
+  const [previewEye, setPreviewEye] = useState(undefined);
+  const [type, setType] = useState("list");
+
+  const toggleType = ()=> {
+    setType(prev => prev === "list" ? "grid" : "list");
+  }
 
   const select = (item) => {
     setSelectedItems((prev) => {
@@ -29,12 +35,16 @@ export const ViewContextProvider = ({ children }) => {
   return (
     <Context.Provider
       value={{
+        setPreviewEye,
+        previewEye,
         itemIsSelected,
         selectedItems,
         select,
         deselect,
         clear,
         setSelection,
+        toggleType,
+        type,
       }}
     >
       {children}

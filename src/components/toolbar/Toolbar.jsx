@@ -5,7 +5,7 @@ import IconTrash from "../../assets/icons/IconTrash";
 import { useParams } from "react-router";
 import { useFolderQuery } from "../../queries/useFolderQuery";
 import CreateFolderModal from "../../modals/CreateFolderModal/CreateFolderModal";
-import CreateFileModal from "../../modals/CreateFileModal/CreateFileModal";
+import CreateFileModal from "../../modals/CrateFileModal/CreateFileModal";
 import { useModal } from "../../context/modal-context/modal-context";
 
 const Toolbar = () => {
@@ -43,12 +43,15 @@ const Toolbar = () => {
     })
   }
 
+
   const isSelected = Boolean(viewContext.selectedItems.length);
   return (
     <div className="toolbar">
+      <button onClick={viewContext.toggleType}>Toggle View Type</button>
       <button onClick={handleClickCreate}>
           Create Folder
         </button>
+
         <button onClick={handleClickCreateFile}>
           Create File
         </button>
