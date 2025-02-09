@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { useViewContext } from "../../context/view-context/view-context";
 import "./ListView.styles.css";
+import useFolderQuery from "../../queries/useFolderQuery";
+import { useNavigate, useParams } from "react-router";
 
 const ListView = ({ files, folders }) => {
+  const navigate = useNavigate();
+  const params = useParams();
+  const folder = useFolderQuery(params.id);
   const { select, deselect, clear, itemIsSelected, setSelection } =
     useViewContext();
-
   const handleSelectionChange = (e, item) => {
     const val = e.currentTarget.checked;
     if (val) {
@@ -29,9 +33,26 @@ const ListView = ({ files, folders }) => {
         <input type="checkbox" onChange={bulk} />
         <span>Name</span>
       </div>
+
+      <div key="parent folder" className="list-view-item">
+        {" "}
+        onDoubleClick=
+        {() => {
+          clear();
+          navigate("/folder/" + folder.find.data.parentId || "null");
+        }}
+        <img src="/folder-blue.png" style={{ marginLeft: "30px" }} />
+        <span>..</span>
+      </div>
       {folders?.map((f) => {
         return (
           <div key={f.id} className="list-view-item">
+            {" "}
+            onDoubleClick=
+            {() => {
+              clear();
+              navigate("/folder/" + f.id);
+            }}
             <input
               type="checkbox"
               checked={Boolean(itemIsSelected(f))}

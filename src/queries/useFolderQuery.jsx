@@ -26,7 +26,13 @@ const useFolderQuery = (id) => {
     mutationFn: (values) => backend.folderService.create(values),
     onSuccess: ({ data }, values, unknown2) => {
       queryClient.invalidateQueries({ queryKey: ["folders", { _query }] });
-      console.log(data, values, unknown2);
+    },
+  });
+
+  const addFile = useMutation({
+    mutationFn: (values) => backend.fileService.create(values),
+    onSuccess: ({ data }, values, unknown2) => {
+      queryClient.invalidateQueries({ queryKey: ["files", { _query }] });
     },
   });
 
@@ -43,7 +49,7 @@ const useFolderQuery = (id) => {
       queryClient.invalidateQueries({ queryKey: ["files", { _query }] });
     },
   });
-  return { find, files, list, addSubfolder, removeFolder, removeFile };
+  return { find, files, list, addSubfolder, addFile, removeFolder, removeFile };
 };
 
 export default useFolderQuery;
