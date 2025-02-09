@@ -29,7 +29,21 @@ const useFolderQuery = (id) => {
       console.log(data, values, unknown2);
     },
   });
-  return { find, files, list, addSubfolder };
+
+  const removeFolder = useMutation({
+    mutationFn: (id) => backend.folderService.remove(id),
+    onSuccess: ({ data }, values, unknown2) => {
+      queryClient.invalidateQueries({ queryKey: ["folders", { _query }] });
+    },
+  });
+
+  const removeFile = useMutation({
+    mutationFn: (id) => backend.fileService.remove(id),
+    onSuccess: ({ data }, values, unknown2) => {
+      queryClient.invalidateQueries({ queryKey: ["files", { _query }] });
+    },
+  });
+  return { find, files, list, addSubfolder, removeFolder, removeFile };
 };
 
 export default useFolderQuery;

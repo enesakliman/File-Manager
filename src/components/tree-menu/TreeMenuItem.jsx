@@ -1,20 +1,21 @@
-import React, { useCallback } from "react";
-import { useState } from "react";
+import React, { useCallback, useState } from "react";
 import useBoolean from "../../hooks/useBoolean";
 import IconChevronRight from "../../assets/icons/IconChevronRight";
 import IconChevronDown from "../../assets/icons/IconChevronDown";
 import IconFolder from "../../assets/icons/IconFolder";
 import IconFolderOpen from "../../assets/icons/IconFolderOpen";
 import { useNavigate, useParams } from "react-router";
+import { useViewContext } from "../../context/view-context/view-context";
 
 const TreeMenuItem = ({ name, id, parentId, defaultExpanded }) => {
+  const { clear } = useViewContext();
   const expanded = useBoolean(defaultExpanded || false);
   const navigate = useNavigate();
   const params = useParams();
 
   const handleClick = useCallback(() => {
     console.log(id);
-
+    clear();
     navigate("/folder/" + id);
   }, []);
 

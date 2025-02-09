@@ -6,8 +6,10 @@ import TreeMenuItem from "../components/tree-menu/TreeMenuItem";
 import { useModal } from "../context/modal-context/modal-context";
 import CreateFolderModal from "../modals/CreateFolderModal/CreateFolderModal";
 import ListView from "../components/list-view/ListView";
+import Toolbar from "../components/toolbar/Toolbar";
 
 const FolderView = () => {
+  const { select, deselect, clear } = useViewContext();
   const modal = useModal();
   const params = useParams();
   const folder = useFolderQuery(params.id);
@@ -25,6 +27,7 @@ const FolderView = () => {
 
   return (
     <Main
+      toolbar={<Toolbar />}
       folderName={name}
       sidebar={
         <>
